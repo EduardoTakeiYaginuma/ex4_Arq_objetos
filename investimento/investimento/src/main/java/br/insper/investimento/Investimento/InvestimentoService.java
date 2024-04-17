@@ -37,7 +37,9 @@ public class InvestimentoService {
         if (investimento.getInvestidor().getPerfilInvestidor().equals("MODERADO")){
             Double valorInvestido = 0.0;
             for (Investimento i : investimentos) {
-                valorInvestido += i.getValorInvestido();
+                if (i.getTitulo().getTipoTitulo().equals("Ação"){
+                    valorInvestido += i.getValorInvestido();
+                }
             }
             if (valorInvestido > 0){
                 if (investimento.getValorInvestido() > 0.5*valorInvestido){
