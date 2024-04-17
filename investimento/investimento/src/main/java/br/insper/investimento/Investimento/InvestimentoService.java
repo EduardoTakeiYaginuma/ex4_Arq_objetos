@@ -34,16 +34,17 @@ public class InvestimentoService {
         investimento.setInvestidor(investidor);
         List<Investimento> investimentos = investimentoRepository.findByInvestidor(investidor);
 
-        Double valorInvestido = 0.0;
-        for (Investimento i : investimentos) {
-            valorInvestido += i.getValorInvestido();
-        }
-        if (valorInvestido > 0){
-            if (investimento.getValorInvestido() > 0.5*valorInvestido){
-                throw new IllegalArgumentException("Valor investido não pode ser maior que 50% do valor total investido");
+        if (investimento.getInvestidor().getPerfilInvestidor().equals("MODERADO")){
+            Double valorInvestido = 0.0;
+            for (Investimento i : investimentos) {
+                valorInvestido += i.getValorInvestido();
+            }
+            if (valorInvestido > 0){
+                if (investimento.getValorInvestido() > 0.5*valorInvestido){
+                    throw new IllegalArgumentException("Valor investido não pode ser maior que 50% do valor total investido");
+                }
             }
         }
-        System.out.println(valorInvestido);
         Titulo titulo = tituloRepository.findByIdentificador(investimento.getTitulo().getIdentificador());
         if (titulo == null) {
             throw new IllegalArgumentException("Título não encontrado");

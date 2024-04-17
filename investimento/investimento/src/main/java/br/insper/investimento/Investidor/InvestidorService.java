@@ -39,7 +39,5 @@ public class InvestidorService {
         }
         investidorRepository.delete(investidor);
     }
-    public void deletarInvestidor_id(Integer id) {
-        investidorRepository.deleteById(id);
-    }
+
 }

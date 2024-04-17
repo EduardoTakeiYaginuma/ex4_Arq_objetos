@@ -1,5 +1,9 @@
 package br.insper.investimento.Titulos;
 
+import br.insper.investimento.Investidor.Investidor;
+import br.insper.investimento.Investidor.InvestidorRepository;
+import br.insper.investimento.Investimento.Investimento;
+import br.insper.investimento.Investimento.InvestimentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +13,8 @@ import java.util.List;
 public class TituloService {
     @Autowired
     private TituloRepository tituloRepository;
+    @Autowired
+    private InvestimentoRepository investimentoRepository;
 
     public Titulo cadastrarTitulo(Titulo titulo) {
         if (titulo.getNome() == null || titulo.getTipoTitulo() == null || titulo.getTipoTitulo() == null){
@@ -23,7 +29,11 @@ public class TituloService {
         }
     }
     public void deletarTitulo(Integer id) {
-
+        Titulo titulo = tituloRepository.findTituloById(id);
+        List<Investimento> investidores = investimentoRepository.findByTitulo(titulo);
+        if (!investidores.isEmpty()) {
+            throw new IllegalArgumentException("O título possui investidores e não pode ser deletado");
+        }
         tituloRepository.deleteById(id);
     }
 

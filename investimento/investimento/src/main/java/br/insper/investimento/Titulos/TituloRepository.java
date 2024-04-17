@@ -9,4 +9,5 @@ public interface TituloRepository extends JpaRepository<Titulo, Integer> {
     public Titulo findByNome(String nome);
 
     public Titulo findByIdentificador(String identificador);
+    public Titulo findTituloById(Integer id);
 }

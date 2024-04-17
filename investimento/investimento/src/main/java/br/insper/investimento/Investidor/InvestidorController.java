@@ -20,10 +20,7 @@ public class InvestidorController {
     public void deletarInvestidor(@RequestParam(required = true) String cpf) {
         investidorService.deletarInvestidor(cpf);
     }
-    @DeleteMapping("/investidor_")
-    public void deletarInvestidor_(@RequestParam(required = true) Integer id) {
-        investidorService.deletarInvestidor_id(id);
-    }
+
 
     @GetMapping("/investidor")
     public List<Investidor> getInvestidores(@RequestParam(required = false) String perfilInvestidor) {
